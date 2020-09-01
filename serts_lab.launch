@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="com.arm.debug.cmsis.launch">
     <mapAttribute key="AverageDurationTracker">
-        <mapEntry key="*Fetching Data Model" value="697925"/>
-        <mapEntry key="*list global low level symbols" value="7131400"/>
+        <mapEntry key="*Fetching Data" value="142352770"/>
+        <mapEntry key="*Fetching Data Model" value="316936"/>
+        <mapEntry key="*list global low level symbols" value="6372589"/>
         <mapEntry key="*updating local_variables" value="3170400"/>
-        <mapEntry key="AddEventObserver" value="749225"/>
+        <mapEntry key="AddEventObserver" value="379054"/>
         <mapEntry key="backtrace" value="3340800"/>
-        <mapEntry key="compute execution mode" value="598081"/>
-        <mapEntry key="continue" value="6053137"/>
-        <mapEntry key="core" value="94066000"/>
-        <mapEntry key="file" value="137083300"/>
-        <mapEntry key="get capabilities" value="267800"/>
-        <mapEntry key="get execution addresss" value="802600"/>
-        <mapEntry key="get source lines" value="2059350"/>
-        <mapEntry key="initialize command help" value="56714100"/>
-        <mapEntry key="list breakpoint options" value="1167475"/>
-        <mapEntry key="list breakpoints" value="1165100"/>
-        <mapEntry key="list instruction sets" value="976350"/>
-        <mapEntry key="list signals" value="1499050"/>
-        <mapEntry key="list watchpoint options" value="3452950"/>
-        <mapEntry key="list watchpoints" value="900800"/>
-        <mapEntry key="load" value="31566300"/>
-        <mapEntry key="run script" value="3523015162"/>
-        <mapEntry key="set CWD" value="11515425"/>
-        <mapEntry key="set debug-from" value="1342500"/>
-        <mapEntry key="start" value="85894200"/>
-        <mapEntry key="target reset" value="16825600"/>
-        <mapEntry key="waitForTargetToStop" value="20913181"/>
+        <mapEntry key="break" value="3563007"/>
+        <mapEntry key="compute execution mode" value="470608"/>
+        <mapEntry key="continue" value="50721792"/>
+        <mapEntry key="core" value="14319800"/>
+        <mapEntry key="file" value="71921769"/>
+        <mapEntry key="get capabilities" value="413025"/>
+        <mapEntry key="get execution addresss" value="597247"/>
+        <mapEntry key="get source lines" value="598993"/>
+        <mapEntry key="initialize command help" value="46851298"/>
+        <mapEntry key="interrupt" value="33658812"/>
+        <mapEntry key="list breakpoint options" value="143992"/>
+        <mapEntry key="list breakpoints" value="657858"/>
+        <mapEntry key="list instruction sets" value="201619"/>
+        <mapEntry key="list signals" value="463988"/>
+        <mapEntry key="list watchpoint options" value="277907"/>
+        <mapEntry key="list watchpoints" value="414145"/>
+        <mapEntry key="load" value="3247570"/>
+        <mapEntry key="remove" value="7689575"/>
+        <mapEntry key="run script" value="5349454214"/>
+        <mapEntry key="set CWD" value="1209869"/>
+        <mapEntry key="set breakpoint properties" value="5563036"/>
+        <mapEntry key="set debug-from" value="836224"/>
+        <mapEntry key="start" value="75959660"/>
+        <mapEntry key="target reset" value="17477483"/>
+        <mapEntry key="toggleBreakpoint" value="8703334"/>
+        <mapEntry key="waitForTargetToStop" value="22207550"/>
     </mapAttribute>
     <stringAttribute key="CMSIS_DCORE" value="Cortex-M4"/>
     <stringAttribute key="CMSIS_EXE_FILE" value="${workspace_loc:/serts_lab/Debug/serts_lab.axf}"/>
@@ -68,7 +74,7 @@
     </mapAttribute>
     <booleanAttribute key="CMSIS_FLASH_AS_CONNECT" value="true"/>
     <booleanAttribute key="CMSIS_FLASH_SINGLE_CLICK" value="false"/>
-    <booleanAttribute key="CMSIS_FLASH_SUPRESS" value="true"/>
+    <booleanAttribute key="CMSIS_FLASH_SUPRESS" value="false"/>
     <booleanAttribute key="CMSIS_LOAD_SYMBOLS_ONLY" value="false"/>
     <stringAttribute key="CMSIS_PACK_NAME" value="STM32F4xx_DFP_STM32F407VGTx"/>
     <stringAttribute key="CMSIS_PACK_VERSION" value="2.14.0"/>
@@ -98,7 +104,7 @@
     <booleanAttribute key="SWD" value="true"/>
     <booleanAttribute key="SWJ" value="true"/>
     <stringAttribute key="ULP_CONFIG" value="C:\Users\infin\Development Studio Workspace\.metadata\.plugins\com.arm.debug.cmsis\DS-MDK\STM32F4xx_DFP_STM32F407VGTx\ulp-config.txt"/>
-    <stringAttribute key="breakpoints" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;breakpoints order=&quot;ALPHA&quot;&gt;&#10;&lt;/breakpoints&gt;&#10;"/>
+    <stringAttribute key="breakpoints" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;breakpoints order=&quot;ALPHA&quot;&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_1.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_1.c&quot; line=&quot;58&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_1.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_1.c&quot; line=&quot;58&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_1.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_1.c&quot; line=&quot;60&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_1.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_1.c&quot; line=&quot;60&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_1.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_1.c&quot; line=&quot;68&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_1.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_1.c&quot; line=&quot;68&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_1.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_1.c&quot; line=&quot;70&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_1.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_1.c&quot; line=&quot;70&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;58&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; address=&quot;0x08001888&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_2.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;58&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;60&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; address=&quot;0x08001892&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_2.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;60&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot; hardwareBreakpoint=&quot;yes&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; address=&quot;0x0800189C&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_2.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;62&quot; function=&quot;Thread_1&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; address=&quot;0x0800189C&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_2.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;62&quot; function=&quot;Thread_1&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;69&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; address=&quot;0x080018B0&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_2.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;69&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;71&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; address=&quot;0x080018BA&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_2.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;71&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&#9;&lt;breakpoint ignorecount=&quot;0&quot; threadenabled=&quot;no&quot; core_list=&quot;&quot; continue=&quot;no&quot; verboseBreakpoints=&quot;yes&quot; kind=&quot;SOURCEPOSITION&quot; hardwareBreakpoint=&quot;yes&quot;&gt;&#10;&#9;&#9;&lt;master_location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; address=&quot;0x080018C4&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_2.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;73&quot; function=&quot;Thread_2&quot;/&gt;&#10;&#9;&#9;&lt;location index=&quot;0&quot; enabled=&quot;true&quot; version=&quot;2&quot; address=&quot;0x080018C4&quot; debugFile=&quot;C:/Users/infin/OneDrive - oc.edu/Documents/SERTS/Labs/serts_lab/src/Thread_2.c&quot; hostFile=&quot;C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\src\Thread_2.c&quot; line=&quot;73&quot; function=&quot;Thread_2&quot;/&gt;&#10;&#9;&lt;/breakpoint&gt;&#10;&lt;/breakpoints&gt;&#10;"/>
     <stringAttribute key="config_db_connection_keys" value="FILES.SELECTED_DEBUG_OPEATION rvi_address connection_type CMSIS_PROJ"/>
     <stringAttribute key="config_db_connection_type" value="Bare Metal Debug"/>
     <stringAttribute key="config_db_platform_name" value="STM32F4xx_DFP_STM32F407VGTx"/>
@@ -108,6 +114,7 @@
     <booleanAttribute key="connectOnly" value="false"/>
     <stringAttribute key="connection_type" value="ST-Link"/>
     <booleanAttribute key="debugSequenceLogging" value="false"/>
+    <stringAttribute key="debugger.view.DataView.os:DataView" value="rO0ABXNyACtjb20uYXJtLmRlYnVnLnZpZXdzLmRhdGEuRGF0YVZpZXdQcm9wZXJ0aWVzAAAAAAAAAAECAAB4cgAlY29tLmFybS5kZWJ1Zy52aWV3cy5kYXRhLlByb3BlcnR5VHJlZQAAAAAAAAABAwABTAAFbURhdGF0ABNMamF2YS91dGlsL0hhc2hNYXA7eHB3BAAAAAJ0ABJkYXRhYmFzZVByb3BlcnRpZXNzcQB+AAF3BAAAAAF0AANydHhzcgArY29tLmFybS5kZWJ1Zy52aWV3cy5kYXRhLkRhdGFiYXNlUHJvcGVydGllcwAAAAAAAAABAgAAeHEAfgABdwQAAAADdAAGdGFibGVzc3EAfgABdwQAAAABdAAFdGFza3NzcgAoY29tLmFybS5kZWJ1Zy52aWV3cy5kYXRhLlRhYmxlUHJvcGVydGllcwAAAAAAAAABAgAAeHEAfgABdwQAAAAEdAACaWRxAH4AC3QAEGNvbHVtbkF1dG9SZXNpemVzcQB+AAF3BAAAAAl0AAEwdAAEdHJ1ZXQAATFxAH4AEnQAATJxAH4AEnQAATNxAH4AEnQAAi0xcQB+ABJ0AAE0cQB+ABJ0AAE1cQB+ABJ0AAE2cQB+ABJ0AAE3cQB+ABJ4dAAMY29sdW1uV2lkdGhzc3EAfgABdwQAAAAJdAABMHQAAjQ4dAABMXQAAjYwdAABMnQAAjY3dAABM3QAAjUzdAACLTF0AAIyNXQAATR0AAI1N3QAATV0AAMxMDR0AAE2dAACODh0AAE3dAACOTV4dAAGY29uZmlndADiT3V0bGluZUNvbmZpZzEJOQktMQlmYWxzZQl0cnVlCTI1CS0xCXRydWUJMAl0cnVlCXRydWUJNDgJLTEJdHJ1ZQkxCXRydWUJdHJ1ZQk2MAktMQl0cnVlCTIJdHJ1ZQl0cnVlCTY3CS0xCXRydWUJMwl0cnVlCXRydWUJNTMJLTEJdHJ1ZQk0CXRydWUJdHJ1ZQk1NwktMQl0cnVlCTUJdHJ1ZQl0cnVlCTEwNAktMQl0cnVlCTYJdHJ1ZQl0cnVlCTg4CS0xCXRydWUJNwl0cnVlCXRydWUJOTUJLTEJdHJ1ZXh4dAACaWRxAH4ABnQADGN1cnJlbnRUYWJsZXEAfgALeHh0AA9jdXJyZW50RGF0YWJhc2V0AANydHh4"/>
     <stringAttribute key="debugger.view.StackView:DebugOutlineColumnState" value="OutlineConfig1&#9;8&#9;0&#9;true&#9;true&#9;56&#9;-1&#9;true&#9;1&#9;false&#9;true&#9;108&#9;-1&#9;true&#9;2&#9;true&#9;true&#9;52&#9;-1&#9;true&#9;3&#9;true&#9;true&#9;48&#9;-1&#9;true&#9;4&#9;true&#9;true&#9;57&#9;-1&#9;true&#9;5&#9;true&#9;true&#9;43&#9;-1&#9;true&#9;6&#9;true&#9;true&#9;73&#9;-1&#9;true&#9;7&#9;true&#9;true&#9;61&#9;-1&#9;true"/>
     <stringAttribute key="dtsl_config" value="DtslScript_DebugAndOnChipTrace"/>
     <stringAttribute key="dtsl_config_script" value="C:\Users\infin\Development Studio Workspace\.metadata\.plugins\com.arm.debug.cmsis\DS-MDK\STM32F4xx_DFP_STM32F407VGTx\dtsl_config_script.py"/>

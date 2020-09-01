@@ -293,7 +293,7 @@
                     					
                     <sourceEntries>
                         						
-                        <entry excluding="RTE/_Target_1/RTE_Components.h|RTE/USB/USBH_Config_0.c.0001|RTE/USB/USBH_Config_0.c.0000|RTE/File_System/FS_Config.c.0000|RTE/Device/STM32F407VGTx/system_stm32f4xx.c.0001|RTE/Device/STM32F407VGTx/system_stm32f4xx.c.0000|RTE/Device/STM32F407VGTx/stm32f4xx_hal_conf.h.0002|RTE/Device/STM32F407VGTx/stm32f4xx_hal_conf.h.0001|RTE/Device/STM32F407VGTx/stm32f4xx_hal_conf.h.0000|RTE/Device/STM32F407VGTx/startup_stm32f407xx.s.0001|RTE/Device/STM32F407VGTx/startup_stm32f407xx.s.0000|RTE/Device/STM32F407VGTx/RTE_Device.h.0001|RTE/Device/STM32F407VGTx/RTE_Device.h.0000" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+                        <entry excluding="src/Thread_1.c|src/Thread.c|RTE/_Target_1/RTE_Components.h|RTE/USB/USBH_Config_0.c.0001|RTE/USB/USBH_Config_0.c.0000|RTE/File_System/FS_Config.c.0000|RTE/Device/STM32F407VGTx/system_stm32f4xx.c.0001|RTE/Device/STM32F407VGTx/system_stm32f4xx.c.0000|RTE/Device/STM32F407VGTx/stm32f4xx_hal_conf.h.0002|RTE/Device/STM32F407VGTx/stm32f4xx_hal_conf.h.0001|RTE/Device/STM32F407VGTx/stm32f4xx_hal_conf.h.0000|RTE/Device/STM32F407VGTx/startup_stm32f407xx.s.0001|RTE/Device/STM32F407VGTx/startup_stm32f407xx.s.0000|RTE/Device/STM32F407VGTx/RTE_Device.h.0001|RTE/Device/STM32F407VGTx/RTE_Device.h.0000" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
                         					
                     </sourceEntries>
                     				
@@ -592,6 +592,12 @@
                         </toolChain>
                         					
                     </folderInfo>
+                    					
+                    <sourceEntries>
+                        						
+                        <entry excluding="src/Thread_1.c|src/Thread.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+                        					
+                    </sourceEntries>
                     				
                 </configuration>
                 			
