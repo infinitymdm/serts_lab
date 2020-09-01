@@ -621,7 +621,7 @@
     	
     <storageModule moduleId="com.arm.cmsis.project">
         		
-        <rteConfig name="BaseProject_2020_08_04.rteconfig"/>
+        <rteConfig name="serts_lab.rteconfig"/>
         		
         <toolChainAdapter id="com.arm.cmsis.pack.build.armcc5.Armcc5ToolChainAdapter" name="Adapter for ARM C/C++ 5.x and 6.x toolchains"/>
         		

@@ -36,7 +36,7 @@ int main(void)
   osKernelInitialize();                 // initialize CMSIS-RTOS
 #endif
 
-	// Initialize the HAL drivers
+  // Initialize the HAL drivers
   HAL_Init();
 
   /* Configure the system clock to 168 MHz */

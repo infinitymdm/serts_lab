@@ -20,7 +20,7 @@
 #define LED_Blue    3
 
 // PROTOTYPES
-void delay(void)
+void delay(void);
 void Thread_1 (void const *arg);                           // function prototype for Thread_1
 osThreadDef (Thread_1, osPriorityNormal, 1, 0);            // define Thread_1
 
@@ -46,5 +46,11 @@ void delay(void){
 
 // Thread function
 void Thread_1(void const *arg){
-
+	int32_t i;
+	for (i=0; i<5; i++){
+		LED_On(0);
+		delay();
+		LED_Off(0);
+		delay();
 	}
+}

@@ -2,8 +2,8 @@
  * Auto generated Run-Time-Environment Component Configuration File
  *      *** Do not modify ! ***
  *
- * Project: BaseProject_2020_08_04
- * RTE configuration: BaseProject_2020_08_04.rteconfig
+ * Project: serts_lab
+ * RTE configuration: serts_lab.rteconfig
 */
 #ifndef RTE_COMPONENTS_H
 #define RTE_COMPONENTS_H
