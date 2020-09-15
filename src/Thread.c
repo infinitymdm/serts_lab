@@ -43,11 +43,11 @@ int Init_Thread (void) {
 }
 
 void Thread_1 (void const *argument) {
-    while (1) {
-		LED_On(0);
-		delay();
-		LED_Off(0);
-		delay();
-    }
+    char *tx_buf = "Send\n\r";
+    char rx_buf[1];
+
+    UART_send(tx_buf, 6);
+    UART_receive(rx_buf, 1);
+
 }
 
