@@ -1,0 +1,10 @@
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\bin\Debug\serts_gui.exe.config
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\bin\Debug\serts_gui.exe
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\bin\Debug\serts_gui.pdb
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\obj\Debug\serts_gui.csprojAssemblyReference.cache
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\obj\Debug\serts_gui.Form1.resources
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\obj\Debug\serts_gui.Properties.Resources.resources
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\obj\Debug\serts_gui.csproj.GenerateResource.cache
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\obj\Debug\serts_gui.csproj.CoreCompileInputs.cache
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\obj\Debug\serts_gui.exe
+C:\Users\infin\OneDrive - oc.edu\Documents\SERTS\Labs\serts_lab\GUI\serts_gui\serts_gui\obj\Debug\serts_gui.pdb
