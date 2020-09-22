@@ -47,11 +47,13 @@ void Thread_1 (void const *argument) {
     while (1) {
     	UART_receive(r_data, 1);
     	if (!strcmp(r_data, "G")) {
+    		UART_send("Got Green\n\r", 11);
     		LED_On(LED_Green);
     		delay();
     		LED_Off(LED_Green);
     	}
     	else if (!strcmp(r_data, "R")) {
+    		UART_send("Got Red\n\r", 9);
     		LED_On(LED_Red);
     		delay();
     		LED_Off(LED_Red);
