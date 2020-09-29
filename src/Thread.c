@@ -102,16 +102,14 @@ void Process_Event(uint16_t event){
         LED_Off(LED_Green);
         // Transition actions
         // State3 entry actions
-        //osMessagePut (mid_Blue_Blink_Queue, Blue_Blink_Enable, osWaitForever);
-        LED_On(LED_Blue);
+        osMessagePut (mid_Blue_Blink_Queue, Blue_Blink_Enable, osWaitForever);
       }
       break;
     case State3:
       if(event == Trigger2){
         Current_State = State1;
         // Exit actions
-        //osMessagePut (mid_Blue_Blink_Queue, Blue_Blink_Disable, osWaitForever);
-        LED_Off(LED_Blue);
+        osMessagePut (mid_Blue_Blink_Queue, Blue_Blink_Disable, osWaitForever);
         // Transition actions
         // State1 entry actions
         LED_On(LED_Red);
@@ -172,11 +170,11 @@ void Rx_Command (void const *argument){
 
 void Blue_Blink(void const *arg){
   osEvent evt; // Receive message object
-	int16_t blink = 0; // 0 - disabled, 1 - enabled
+  int16_t blink = 0; // 0 - disabled, 1 - enabled
 
-	while(1){
+  while(1){
     evt = osMessageGet (mid_Blue_Blink_Queue, osWaitForever); // wait for message
-		if (evt.status == osEventMessage) { // check for valid message
+	if (evt.status == osEventMessage) { // check for valid message
       if( evt.value.v == Blue_Blink_Enable){
         // Blue Blink enabled
         blink = 1; // enabled
@@ -198,5 +196,5 @@ void Blue_Blink(void const *arg){
         } // while(blink)
       } // if( evt.value.v == Blue_Blink_Enable)
     } // if (evt.status == osEventMessage)
-	} // while(1)
+  } // while(1)
 } // Blue_Blink_Thread
