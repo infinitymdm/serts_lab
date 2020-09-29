@@ -25,10 +25,13 @@ namespace serts_gui
             thread_0.IsBackground = true;
 
             // Set up the serial port
-            serialPort1.Open();
-            if (!serialPort1.IsOpen)
+            try
             {
-                Debug.WriteLine("Unable to open serial port");
+                serialPort1.Open();
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to open serial port");
             }
 
             // Make sure the window gets created
@@ -61,17 +64,43 @@ namespace serts_gui
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void buttonRed_Click(object sender, EventArgs e)
         {
-            serialPort1.Write("R");
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Write("1");
+            }
+            else
+            {
+                Debug.WriteLine("Failed to write to serial port");
+            }
         }
 
         private void buttonGreen_Click(object sender, EventArgs e)
         {
-            serialPort1.Write("G");
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Write("2");
+            }
+            else
+            {
+                Debug.WriteLine("Failed to write to serial port");
+            }
+        }
+
+        private void buttonBlue_Click(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Write("3");
+            }
+            else
+            {
+                Debug.WriteLine("Failed to write to serial port");
+            }
         }
     }
 }
