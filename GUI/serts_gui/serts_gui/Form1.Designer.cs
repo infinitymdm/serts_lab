@@ -38,7 +38,7 @@
             // 
             // serialPort1
             // 
-            this.serialPort1.PortName = "COM6";
+            this.serialPort1.PortName = "COM4";
             // 
             // buttonRed
             // 

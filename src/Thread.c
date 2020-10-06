@@ -45,17 +45,22 @@ void Thread_1 (void const *argument) {
 		// initialize the drive
 		fstatus = finit (drive_name);
 		if (fstatus != fsOK){
-			// handle the error, finit didn't work
+			return;	// handle the error, finit didn't work
 		} // end if
 		// Mount the drive
 		fstatus = fmount (drive_name);
 		if (fstatus != fsOK){
-			// handle the error, fmount didn't work
+			return;	// handle the error, fmount didn't work
 		} // end if
 		// file system and drive are good to go
-		f = fopen ("Test.txt","w");// open a file on the USB device for writing
+		char _;
+		f = fopen ("String.txt","r");// open a file on the USB device for writing
 		if (f != NULL) {
-			fputs("Testing an OTG USB device.\n", f); // write a string to the file
+			int numRead = fread(&_, sizeof(char), 1, f);
+			while (numRead != 0){
+				UART_send(&_, 1);
+				numRead = fread(&_, sizeof(char), 1, f);
+			}
 			fclose (f); // close the file
 		}
 
