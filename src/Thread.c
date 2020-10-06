@@ -32,7 +32,8 @@ void Thread_1 (void const *argument) {
 	uint8_t drivenum = 0; // Using U0: drive number
 	char *drive_name = "U0:"; // USB drive name
 	fsStatus fstatus; // file system status variable
-	static FILE *f;
+	fsFileInfo drive_info;
+	drive_info.fileID = 0;
 
 	LED_On(LED_Green);
 	ustatus = USBH_Initialize (drivenum); // initialize the USB Host
@@ -53,17 +54,11 @@ void Thread_1 (void const *argument) {
 			return;	// handle the error, fmount didn't work
 		} // end if
 		// file system and drive are good to go
-		char _;
-		f = fopen ("String.txt","r");// open a file on the USB device for writing
-		if (f != NULL) {
-			int numRead = fread(&_, sizeof(char), 1, f);
-			while (numRead != 0){
-				UART_send(&_, 1);
-				numRead = fread(&_, sizeof(char), 1, f);
-			}
-			fclose (f); // close the file
+		char buffer[100];
+		while (ffind("*.txt", &drive_info) == fsOK) {
+			snprintf (buffer, 100, "\n\r%-32s %5d bytes, ID: %04d", drive_info.name, drive_info.size, drive_info.fileID);
+			UART_send(buffer, 100);
 		}
-
 	} // end if USBH_Initialize
 	LED_Off(LED_Green);
 }
