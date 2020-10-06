@@ -15,186 +15,50 @@
 #define LED_Red     2
 #define LED_Blue    3
 
-// Commands to Blue_Blink_Thread
-enum Blue_Blink_Commands{
-  Blue_Blink_Enable,
-  Blue_Blink_Disable
-};
-
-////////////////////////////////////////////////
-// State Machine definitions
-enum state{
-  NoState,
-  State1,
-  State2,
-  State3
-};
-
-enum Triggers{
-  Trigger1,
-  Trigger2,
-  Trigger3
-};
-
-
-// Receive characters from the VB GUI
-#define Trigger1_char "1"
-#define Trigger2_char "2"
-#define Trigger3_char "3"
-
-//////////////////////////////////////////////////////////
-void Control (void const *argument); // thread function
-osThreadId tid_Control; // thread id
-osThreadDef (Control, osPriorityNormal, 1, 0); // thread object
-
-// Command queue from Rx_Command to Controller
-osMessageQId mid_CMDQueue; // message queue for commands to Thread
-osMessageQDef (CMDQueue, 1, uint32_t); // message queue object
-
-// Command queue from Controller Blue_Blink_Thread
-osMessageQId mid_Blue_Blink_Queue; // message queue for commands to Thread
-osMessageQDef (Blue_Blink_Queue, 1, uint32_t); // message queue object
-
-// UART receive thread
-void Rx_Command (void const *argument);  // thread function
-osThreadId tid_RX_Command;  // thread id
-osThreadDef (Rx_Command, osPriorityNormal, 1, 0); // thread object
-
-// Blue Blink thread
-void Blue_Blink (void const *argument);                             // thread function
-osThreadId tid_Blue_Blink;                                          // thread id
-osThreadDef (Blue_Blink, osPriorityNormal, 1, 0);                   // thread object
-
-void Process_Event(uint16_t event){
-  static uint16_t   Current_State = NoState; // Current state of the SM
-  switch(Current_State){
-    case NoState:
-      // Next State
-      Current_State = State1;
-      // Exit actions
-      // Transition actions
-      // State1 entry actions
-      LED_On(LED_Red);
-
-      break;
-    case State1:
-      if(event == Trigger1){
-        Current_State = State2;
-        // Exit actions
-        LED_Off(LED_Red);
-        // Transition actions
-        // State2 entry actions
-        LED_On(LED_Green);
-      }
-      break;
-    case State2:
-      if(event == Trigger2){
-        Current_State = State1;
-        // Exit actions
-        LED_Off(LED_Green);
-        // Transition actions
-        // State1 entry actions
-        LED_On(LED_Red);
-      }
-      if(event == Trigger3){
-        Current_State = State3;
-        // Exit actions
-        LED_Off(LED_Green);
-        // Transition actions
-        // State3 entry actions
-        osMessagePut (mid_Blue_Blink_Queue, Blue_Blink_Enable, osWaitForever);
-      }
-      break;
-    case State3:
-      if(event == Trigger2){
-        Current_State = State1;
-        // Exit actions
-        osMessagePut (mid_Blue_Blink_Queue, Blue_Blink_Disable, osWaitForever);
-        // Transition actions
-        // State1 entry actions
-        LED_On(LED_Red);
-      }
-      break;
-    default:
-      break;
-  } // end case(Current_State)
-} // Process_Event
-
+void Thread_1 (void const *argument);
+osThreadId tid_Thread_1;
+osThreadDef (Thread_1, osPriorityNormal, 1, 0);
 
 void Init_Thread (void) {
   LED_Initialize(); // Initialize the LEDs
   UART_Init(); // Initialize the UART
-  // Create queues
-  mid_CMDQueue = osMessageCreate (osMessageQ(CMDQueue), NULL);  // create msg queue
-  if (!mid_CMDQueue) return; // Message Queue object not created, handle failure
-  mid_Blue_Blink_Queue = osMessageCreate (osMessageQ(Blue_Blink_Queue), NULL);  // create msg queue
-  if (!mid_Blue_Blink_Queue) return; // Message Queue object not created, handle failure
   // Create threads
-  tid_RX_Command = osThreadCreate (osThread(Rx_Command), NULL);
-  if (!tid_RX_Command) return;
-  tid_Control = osThreadCreate (osThread(Control), NULL);
-  if (!tid_Control) return;
-  tid_Blue_Blink = osThreadCreate (osThread(Blue_Blink), NULL);
-  if (!tid_Blue_Blink) return;
-  }
-
-// Thread function
-void Control(void const *arg){
-  osEvent evt; // Receive message object
-  Process_Event(0); // Initialize the State Machine
-   while(1){
-    evt = osMessageGet (mid_CMDQueue, osWaitForever); // receive command
-      if (evt.status == osEventMessage) { // check for valid message
-      Process_Event(evt.value.v); // Process event
-    }
-   }
+  tid_Thread_1 = osThreadCreate (osThread(Thread_1), NULL);
+  if (!tid_Thread_1) return;
 }
 
-void Rx_Command (void const *argument){
-   char rx_char[2]={0,0};
-   while(1){
-      UART_receive(rx_char, 1); // Wait for command from PC GUI
-    // Check for the type of character received
-      if(!strcmp(rx_char,Trigger1_char)){
-         // Trigger1 received
-         osMessagePut (mid_CMDQueue, Trigger1, osWaitForever);
-      } else if (!strcmp(rx_char,Trigger2_char)){
-        // Trigger2 received
-         osMessagePut (mid_CMDQueue, Trigger2, osWaitForever);
-      } else if (!strcmp(rx_char,Trigger3_char)){
-        // Trigger3 received
-         osMessagePut (mid_CMDQueue, Trigger3, osWaitForever);
-      } // end if
-   }
-} // end Rx_Command
+void Thread_1 (void const *argument) {
+	usbStatus ustatus; // USB driver status variable
+	uint8_t drivenum = 0; // Using U0: drive number
+	char *drive_name = "U0:"; // USB drive name
+	fsStatus fstatus; // file system status variable
+	static FILE *f;
 
-void Blue_Blink(void const *arg){
-  osEvent evt; // Receive message object
-  int16_t blink = 0; // 0 - disabled, 1 - enabled
+	LED_On(LED_Green);
+	ustatus = USBH_Initialize (drivenum); // initialize the USB Host
+	if (ustatus == usbOK){
+		// loop until the device is OK, may be delay from Initialize
+		ustatus = USBH_Device_GetStatus (drivenum); // get the status of the USB device
+		while(ustatus != usbOK){
+			ustatus = USBH_Device_GetStatus (drivenum); // get the status of the USB device
+		}
+		// initialize the drive
+		fstatus = finit (drive_name);
+		if (fstatus != fsOK){
+			// handle the error, finit didn't work
+		} // end if
+		// Mount the drive
+		fstatus = fmount (drive_name);
+		if (fstatus != fsOK){
+			// handle the error, fmount didn't work
+		} // end if
+		// file system and drive are good to go
+		f = fopen ("Test.txt","w");// open a file on the USB device for writing
+		if (f != NULL) {
+			fputs("Testing an OTG USB device.\n", f); // write a string to the file
+			fclose (f); // close the file
+		}
 
-  while(1){
-    evt = osMessageGet (mid_Blue_Blink_Queue, osWaitForever); // wait for message
-	if (evt.status == osEventMessage) { // check for valid message
-      if( evt.value.v == Blue_Blink_Enable){
-        // Blue Blink enabled
-        blink = 1; // enabled
-        while(blink){
-          // Blink the Blue LED
-          LED_On(LED_Blue);
-          osDelay(1000);
-          LED_Off(LED_Blue);
-          osDelay(1000);
-          // Check for message without any delay (no osWaitForever)
-          evt = osMessageGet (mid_Blue_Blink_Queue, 0); // check queue
-          if (evt.status == osEventMessage) { // check for valid message
-						// valid message received
-            if(evt.value.v == Blue_Blink_Disable){
-							// Disable message received
-              blink = 0; // Disable
-            }
-          } // if (evt.status == osEventMessage)
-        } // while(blink)
-      } // if( evt.value.v == Blue_Blink_Enable)
-    } // if (evt.status == osEventMessage)
-  } // while(1)
-} // Blue_Blink_Thread
+	} // end if USBH_Initialize
+	LED_Off(LED_Green);
+}
