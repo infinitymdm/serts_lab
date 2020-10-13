@@ -15,19 +15,23 @@ namespace serts_gui
     public partial class Form1 : Form
     {
 
+        readonly int ShowFiles = 1;
+        readonly int StartFileList = 2;
+        readonly int EndFileList = 3;
+
         public Form1()
         {
             InitializeComponent();
 
             // Set up Threads
-            Thread thread_0 = new Thread(new ThreadStart(Thread_0));
-            thread_0.Priority = ThreadPriority.Lowest;
-            thread_0.IsBackground = true;
+            Thread PC_Comm = new Thread(new ThreadStart(PC_comm_method));
+            PC_Comm.Priority = ThreadPriority.Lowest;
+            PC_Comm.IsBackground = true;
 
             // Set up the serial port
             try
             {
-                serialPort1.Open();
+                serialPort.Open();
             }
             catch
             {
@@ -39,67 +43,78 @@ namespace serts_gui
             {
                 CreateHandle();
             }
-            thread_0.Start();
+
+            // Start Threads
+            PC_Comm.Start();
         }
 
-        public delegate void TextBoxDelegate(String text);
+        public delegate void ListBoxDelegate(int command, string str);
 
-
-        private void Thread_0()
+        public void ListBoxDelMethod(int command, string str)
         {
-            TextBoxDelegate TextBoxDel = TextBoxDelMethod;
-            while(true)
+            if (command == StartFileList)
             {
-                if(serialPort1.IsOpen)
+                File_List.Items.Clear();
+            }
+            else if (command == EndFileList)
+            {
+                File_List.Items.Add(str);
+            }
+        }
+
+        private void PC_comm_method()
+        {
+            ListBoxDelegate FileListDel = ListBoxDelMethod;
+            string serialData = "";
+            while (true)
+            {
+                if (serialPort.IsOpen)
                 {
-                    String r_str = serialPort1.ReadLine();
-                    textBox1.Invoke(TextBoxDel, r_str);
+                    try
+                    {
+                        serialData = serialPort.ReadLine();
+                    }
+                    catch 
+                    {
+                        Debug.WriteLine("Failed to open serial port");
+                    }
+                    if (serialData.Equals(StartFileList.ToString()))
+                    {
+                        File_List.Invoke(FileListDel, StartFileList, "");
+                        try
+                        {
+                            serialData = serialPort.ReadLine();
+                        }
+                        catch
+                        {
+                            Debug.WriteLine("Failed to read from serial port");
+                        }
+                        while (!serialData.Equals(EndFileList.ToString()))
+                        {
+                            File_List.Invoke(FileListDel, EndFileList, serialData);
+                            try
+                            {
+                                serialData = serialPort.ReadLine();
+                            }
+                            catch
+                            {
+                                Debug.WriteLine("Failed to read from serial port");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Thread.Sleep(500);
                 }
             }
         }
 
-        public void TextBoxDelMethod(String text)
+        private void Show_Files_Click(object sender, EventArgs e)
         {
-            textBox1.Text = text;
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void buttonRed_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen)
+            if (serialPort.IsOpen)
             {
-                serialPort1.Write("1");
-            }
-            else
-            {
-                Debug.WriteLine("Failed to write to serial port");
-            }
-        }
-
-        private void buttonGreen_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen)
-            {
-                serialPort1.Write("2");
-            }
-            else
-            {
-                Debug.WriteLine("Failed to write to serial port");
-            }
-        }
-
-        private void buttonBlue_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen)
-            {
-                serialPort1.Write("3");
-            }
-            else
-            {
-                Debug.WriteLine("Failed to write to serial port");
+                serialPort.Write(ShowFiles.ToString());
             }
         }
     }

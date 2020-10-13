@@ -29,80 +29,51 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.buttonRed = new System.Windows.Forms.Button();
-            this.buttonGreen = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonBlue = new System.Windows.Forms.Button();
+            this.serialPort = new System.IO.Ports.SerialPort(this.components);
+            this.File_List = new System.Windows.Forms.ListBox();
+            this.Show_Files = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // serialPort1
+            // serialPort
             // 
-            this.serialPort1.PortName = "COM4";
+            this.serialPort.PortName = "COM5";
             // 
-            // buttonRed
+            // File_List
             // 
-            this.buttonRed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.buttonRed.Location = new System.Drawing.Point(86, 134);
-            this.buttonRed.Name = "buttonRed";
-            this.buttonRed.Size = new System.Drawing.Size(147, 73);
-            this.buttonRed.TabIndex = 1;
-            this.buttonRed.Text = "1";
-            this.buttonRed.UseVisualStyleBackColor = false;
-            this.buttonRed.Click += new System.EventHandler(this.buttonRed_Click);
+            this.File_List.FormattingEnabled = true;
+            this.File_List.ItemHeight = 31;
+            this.File_List.Location = new System.Drawing.Point(12, 109);
+            this.File_List.Name = "File_List";
+            this.File_List.Size = new System.Drawing.Size(776, 314);
+            this.File_List.TabIndex = 0;
             // 
-            // buttonGreen
+            // Show_Files
             // 
-            this.buttonGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.buttonGreen.Location = new System.Drawing.Point(322, 134);
-            this.buttonGreen.Name = "buttonGreen";
-            this.buttonGreen.Size = new System.Drawing.Size(147, 73);
-            this.buttonGreen.TabIndex = 2;
-            this.buttonGreen.Text = "2";
-            this.buttonGreen.UseVisualStyleBackColor = false;
-            this.buttonGreen.Click += new System.EventHandler(this.buttonGreen_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(86, 270);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(620, 38);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // buttonBlue
-            // 
-            this.buttonBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.buttonBlue.Location = new System.Drawing.Point(559, 134);
-            this.buttonBlue.Name = "buttonBlue";
-            this.buttonBlue.Size = new System.Drawing.Size(147, 73);
-            this.buttonBlue.TabIndex = 3;
-            this.buttonBlue.Text = "3";
-            this.buttonBlue.UseVisualStyleBackColor = false;
-            this.buttonBlue.Click += new System.EventHandler(this.buttonBlue_Click);
+            this.Show_Files.Location = new System.Drawing.Point(264, 30);
+            this.Show_Files.Name = "Show_Files";
+            this.Show_Files.Size = new System.Drawing.Size(271, 56);
+            this.Show_Files.TabIndex = 1;
+            this.Show_Files.Text = "Show Files";
+            this.Show_Files.UseVisualStyleBackColor = true;
+            this.Show_Files.Click += new System.EventHandler(this.Show_Files_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.buttonBlue);
-            this.Controls.Add(this.buttonGreen);
-            this.Controls.Add(this.buttonRed);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Show_Files);
+            this.Controls.Add(this.File_List);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.IO.Ports.SerialPort serialPort1;
-        private System.Windows.Forms.Button buttonRed;
-        private System.Windows.Forms.Button buttonGreen;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button buttonBlue;
+        private System.IO.Ports.SerialPort serialPort;
+        private System.Windows.Forms.ListBox File_List;
+        private System.Windows.Forms.Button Show_Files;
     }
 }
 
