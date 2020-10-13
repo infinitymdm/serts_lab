@@ -18,6 +18,7 @@ namespace serts_gui
         readonly int ShowFiles = 1;
         readonly int StartFileList = 2;
         readonly int EndFileList = 3;
+        readonly int SetFile = 4;
 
         public Form1()
         {
@@ -115,6 +116,17 @@ namespace serts_gui
             if (serialPort.IsOpen)
             {
                 serialPort.Write(ShowFiles.ToString());
+            }
+        }
+
+        private void Send_File_Click(object sender, EventArgs e)
+        {
+            byte[] b = { 0 };
+            if (File_List.SelectedIndex != -1)
+            {
+                serialPort.Write(SetFile.ToString());
+                serialPort.Write(File_List.SelectedItem.ToString());
+                serialPort.Write(b, 0, 1);
             }
         }
     }

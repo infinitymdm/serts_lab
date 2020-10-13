@@ -16,11 +16,13 @@
 #define LED_Blue    3
 
 #define Show_Files_char "1"
+#define Set_File_char "4"
 
 enum commands {
 	ListFiles,
 	SendComplete,
 	SendFiles,
+	SetFile,
 };
 
 enum state {
@@ -167,6 +169,11 @@ void Rx_Command (void const *argument) {
 		UART_receive(rx_char, 1);
 		if (!strcmp(rx_char, Show_Files_char)) {
 			osMessagePut(mid_CMDQueue, ListFiles, osWaitForever);
+		}
+		else if (!strcmp(rx_char, Set_File_char)) {
+			char selectedFileName[20];
+			UART_receivestring(selectedFileName, 20);
+			char *_ = selectedFileName;
 		}
 	}
 }
