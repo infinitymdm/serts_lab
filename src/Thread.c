@@ -41,7 +41,7 @@ void Init_Thread (void) {
 void Thread_1 (void const *argument) {
 	static uint8_t rtrn = 0;  	// return variable
 	float32_t Fs = 8000.0; 		// sample frequency
-	float32_t freq = 250.0; 	// signal frequency in Hz
+	float32_t freq = 200.0; 	// signal frequency in Hz
 	int16_t i; 					// loop counter
 	float32_t tmp; 				// factor
 	float32_t cnt = 0.0f; 		// time index
