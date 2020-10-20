@@ -37,7 +37,7 @@
             // 
             // serialPort
             // 
-            this.serialPort.PortName = "COM5";
+            this.serialPort.PortName = "COM8";
             // 
             // File_List
             // 
