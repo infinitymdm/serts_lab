@@ -20,6 +20,24 @@
 #define NUM_POINTS 1024 // number of points per channel
 #define BUF_LEN NUM_CHAN*NUM_POINTS // length of the audio buffer
 
+typedef struct WAVHEADER {
+	unsigned char riff[4];
+	uint32_t overall_size;
+	unsigned char wave[4];
+	unsigned char fmt_chunk_marker[4];
+	uint32_t length_of_fmt;
+	uint16_t format_type;				// 1-PCM, 3-IEEE float, 6-8bit A law, 7-8bit mu law
+	uint16_t channels;
+	uint16_t sample_rate;
+	uint32_t byterate;
+	uint16_t block_align;
+	uint16_t bits_per_sample;
+	unsigned char data_chunk_header[4];
+	uint32_t data_size;
+} WAVHEADER;
+
+FILE *f;
+
 // Semaphores
 osSemaphoreDef (SEM0);
 osSemaphoreId (SEM0_id);
@@ -29,13 +47,12 @@ osMessageQId mid_bufQueue;
 osMessageQDef(bufQueue, 1, uint32_t);
 
 // Threads
-void Thread_1 (void const *argument); // Thread_1 prototype
+void FS (void const *argument); // Thread_1 prototype
 osThreadId tid_Thread_1;
-osThreadDef(Thread_1, osPriorityNormal, 1, 0);
+osThreadDef(FS, osPriorityNormal, 1, 0);
 
 // buffer used for audio play
-int16_t Audio_Buffer_1[BUF_LEN];
-int16_t Audio_Buffer_2[BUF_LEN];
+int16_t Audio_Buffer[2][BUF_LEN];
 
 void Init_Thread (void) {
 	LED_Initialize(); // Initialize the LEDs
@@ -48,66 +65,60 @@ void Init_Thread (void) {
 	mid_bufQueue = osMessageCreate(osMessageQ(bufQueue), NULL);
 
 	// Create threads
-	tid_Thread_1 = osThreadCreate(osThread(Thread_1), NULL);
+	tid_Thread_1 = osThreadCreate(osThread(FS), NULL);
 	if (!tid_Thread_1) return;
 
 	if (!mid_bufQueue || !tid_Thread_1) return;
 }
 
-void Thread_1 (void const *argument) {
-	static uint8_t rtrn = 0;  	// return variable
-	float32_t Fs = 8000.0; 		// sample frequency
-	float32_t freq = 200.0; 	// signal frequency in Hz
-	int16_t i; 					// loop counter
-	float32_t tmp; 				// factor
-	float32_t cnt = 0.0f; 		// time index
+void FS (void const *argument) {
+	usbStatus ustatus; // USB driver status variable
+	uint8_t drivenum = 0; // Using U0: drive number
+	char *drive_name = "U0:"; // USB drive name
+	fsStatus fstatus; // file system status variable
+	WAVHEADER header;
+	size_t rd;
+	uint32_t i;
+	static uint8_t rtrn = 0;
+	uint8_t rdnum = 1; // read buffer number
 
-	tmp = 6.28f*freq/Fs; // only calc this factor once
+	ustatus = USBH_Initialize (drivenum); // initialize the USB Host
+	if (ustatus == usbOK){
+		// loop until the device is OK, may be delay from Initialize
+		ustatus = USBH_Device_GetStatus (drivenum); // get the status of the USB device
+		while(ustatus != usbOK){
+			ustatus = USBH_Device_GetStatus (drivenum); // get the status of the USB device
+		}
+		// initialize the drive
+		fstatus = finit (drive_name);
+		if (fstatus != fsOK){
+			// handle the error, finit didn't work
+		} // end if
+		// Mount the drive
+		fstatus = fmount (drive_name);
+		if (fstatus != fsOK){
+			// handle the error, fmount didn't work
+		} // end if
+		// file system and drive are good to go
+		f = fopen ("Test.wav","r");// open a file on the USB device
+		if (f != NULL) {
+			fread((void *)&header, sizeof(header), 1, f);
+			fclose (f); // close the file
+		} // end if file opened
+	} // end if USBH_Initialize
 
-	// initialize the audio output
-	rtrn = BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_AUTO, 0x46, 8000);
-	if (rtrn != AUDIO_OK) return;
+} // end Thread
 
-	// generate data for the audio buffer
- 	for (i=0;i<NUM_POINTS;i++) {
-		Audio_Buffer_1[2*i] = arm_cos_f32(tmp*cnt)*32000.0f; // Left channel
-		Audio_Buffer_1[2*i+1] = Audio_Buffer_1[2*i]; // Right channel
-		cnt = cnt + 1.0f;
-	}
-	// Start the audio player, size is number of bytes so mult. by 2
- 	BSP_AUDIO_OUT_Play((uint16_t *) Audio_Buffer_1, BUF_LEN*2);
-
- 	// Cycle back and forth between buffers
- 	while (true) {
- 		// Write buffer 2
- 	 	for (i=0;i<NUM_POINTS;i++) {
- 			Audio_Buffer_2[2*i] = arm_cos_f32(tmp*cnt)*32000.0f; // Left channel
- 			Audio_Buffer_2[2*i+1] = Audio_Buffer_2[2*i]; // Right channel
- 			cnt = cnt + 1.0f;
- 		}
- 	 	osMessagePut(mid_bufQueue, 2, osWaitForever); 	// Send buffer number
- 	 	osSemaphoreWait(SEM0_id, osWaitForever);		// Wait for reply
-
- 	 	// Write buffer 1
- 	 	for (i=0;i<NUM_POINTS;i++) {
- 			Audio_Buffer_1[2*i] = arm_cos_f32(tmp*cnt)*32000.0f; // Left channel
- 			Audio_Buffer_1[2*i+1] = Audio_Buffer_1[2*i]; // Right channel
- 			cnt = cnt + 1.0f;
- 		}
- 	 	osMessagePut(mid_bufQueue, 1, osWaitForever); 	// Send buffer number
- 	 	osSemaphoreWait(SEM0_id, osWaitForever);		// Wait for reply
- 	}
-}
 
 /* User Callbacks: user has to implement these functions if they are needed. */
 /* This function is called when the requested data has been completely transferred. */
 void BSP_AUDIO_OUT_TransferComplete_CallBack (void) {
 	uint16_t msg = osMessageGet(mid_bufQueue, 0).value.v;
 	if (msg == 1) {
-		BSP_AUDIO_OUT_ChangeBuffer((uint16_t*) Audio_Buffer_1, BUF_LEN);
+		BSP_AUDIO_OUT_ChangeBuffer((uint16_t*) Audio_Buffer[1], BUF_LEN);
 	}
 	else if (msg == 2) {
-		BSP_AUDIO_OUT_ChangeBuffer((uint16_t*) Audio_Buffer_2, BUF_LEN);
+		BSP_AUDIO_OUT_ChangeBuffer((uint16_t*) Audio_Buffer[2], BUF_LEN);
 	}
 	osSemaphoreRelease(SEM0_id);
 }
