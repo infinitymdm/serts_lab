@@ -28,7 +28,7 @@ typedef struct WAVHEADER {
 	uint32_t length_of_fmt;
 	uint16_t format_type;				// 1-PCM, 3-IEEE float, 6-8bit A law, 7-8bit mu law
 	uint16_t channels;
-	uint16_t sample_rate;
+	uint32_t sample_rate;
 	uint32_t byterate;
 	uint16_t block_align;
 	uint16_t bits_per_sample;
@@ -36,7 +36,11 @@ typedef struct WAVHEADER {
 	uint32_t data_size;
 } WAVHEADER;
 
+// pointer to the file
 FILE *f;
+
+// buffer used for audio play
+int16_t Audio_Buffer[2][BUF_LEN];
 
 // Semaphores
 osSemaphoreDef (SEM0);
@@ -50,9 +54,6 @@ osMessageQDef(bufQueue, 1, uint32_t);
 void FS (void const *argument); // Thread_1 prototype
 osThreadId tid_Thread_1;
 osThreadDef(FS, osPriorityNormal, 1, 0);
-
-// buffer used for audio play
-int16_t Audio_Buffer[2][BUF_LEN];
 
 void Init_Thread (void) {
 	LED_Initialize(); // Initialize the LEDs
@@ -77,10 +78,8 @@ void FS (void const *argument) {
 	char *drive_name = "U0:"; // USB drive name
 	fsStatus fstatus; // file system status variable
 	WAVHEADER header;
-	size_t rd;
-	uint32_t i;
-	static uint8_t rtrn = 0;
-	uint8_t rdnum = 1; // read buffer number
+	int i = 0;
+	static uint8_t rtrn;
 
 	ustatus = USBH_Initialize (drivenum); // initialize the USB Host
 	if (ustatus == usbOK){
@@ -91,22 +90,33 @@ void FS (void const *argument) {
 		}
 		// initialize the drive
 		fstatus = finit (drive_name);
-		if (fstatus != fsOK){
-			// handle the error, finit didn't work
-		} // end if
+		if (fstatus != fsOK) return;
 		// Mount the drive
 		fstatus = fmount (drive_name);
-		if (fstatus != fsOK){
-			// handle the error, fmount didn't work
-		} // end if
+		if (fstatus != fsOK) return;
 		// file system and drive are good to go
 		f = fopen ("Test.wav","r");// open a file on the USB device
 		if (f != NULL) {
+			// Read the header
 			fread((void *)&header, sizeof(header), 1, f);
-			fclose (f); // close the file
+
+			// Initialize the audio device
+			rtrn = BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_AUTO, 0x46, header.sample_rate);
+			if (rtrn != AUDIO_OK) return;
+
+			fread(Audio_Buffer[i], sizeof(int16_t), BUF_LEN, f); // Read the first chunk of audio
+			BSP_AUDIO_OUT_Play((uint16_t *) Audio_Buffer[i], BUF_LEN*2);
+			i++;
+			while (fread(Audio_Buffer[i], sizeof(int16_t), BUF_LEN, f)) {
+				osMessagePut(mid_bufQueue, i+1, osWaitForever);
+				osSemaphoreWait(SEM0_id, osWaitForever);
+				i++;
+				if (i > 1) i = 0;
+			}
+			fclose(f);
+			BSP_AUDIO_OUT_SetMute(AUDIO_MUTE_ON);
 		} // end if file opened
 	} // end if USBH_Initialize
-
 } // end Thread
 
 
@@ -115,10 +125,10 @@ void FS (void const *argument) {
 void BSP_AUDIO_OUT_TransferComplete_CallBack (void) {
 	uint16_t msg = osMessageGet(mid_bufQueue, 0).value.v;
 	if (msg == 1) {
-		BSP_AUDIO_OUT_ChangeBuffer((uint16_t*) Audio_Buffer[1], BUF_LEN);
+		BSP_AUDIO_OUT_ChangeBuffer((uint16_t*) Audio_Buffer[0], BUF_LEN);
 	}
 	else if (msg == 2) {
-		BSP_AUDIO_OUT_ChangeBuffer((uint16_t*) Audio_Buffer[2], BUF_LEN);
+		BSP_AUDIO_OUT_ChangeBuffer((uint16_t*) Audio_Buffer[1], BUF_LEN);
 	}
 	osSemaphoreRelease(SEM0_id);
 }
@@ -131,7 +141,7 @@ void BSP_AUDIO_OUT_HalfTransfer_CallBack (void) {
 /* This function is called when an Interrupt due to transfer error or peripheral
    error occurs. */
 void BSP_AUDIO_OUT_Error_CallBack(void){
-	while (1) { }
+	while (true) { }
 }
 
 
